@@ -11,7 +11,7 @@ export function launch(socket: rpc.IWebSocket) {
     const writer = new rpc.WebSocketMessageWriter(socket);
     // start the language server as an external process
     const socketConnection = server.createConnection(reader, writer, () => socket.dispose());
-    const serverConnection = server.createServerProcess('SLS', 'sls', ['--stdio']);
+    const serverConnection = server.createServerProcess('SLS', 'sls', ['stdio']);
     server.forward(socketConnection, serverConnection, message => {
         if (rpc.isRequestMessage(message)) {
             if (message.method === lsp.InitializeRequest.type.method) {
